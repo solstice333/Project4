@@ -1,4 +1,4 @@
 Project4
 ========
 
-Hash Table Implementation - Quadratic with Open Addressing
+Hash Table Implementation - Quadratic Probing with Open Addressing
