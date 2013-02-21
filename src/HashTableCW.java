@@ -16,7 +16,7 @@ public class HashTableCW {
 
    private HashEntry[] HashArray;
    private int occupied;
-
+// 
    private int hash(Object x) {
       return Math.abs(x.hashCode()) % HashArray.length;
    }

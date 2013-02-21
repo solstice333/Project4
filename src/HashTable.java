@@ -94,10 +94,12 @@ public class HashTable {
       int index = findPosition(item);
       boolean found = false;
 
-      if (HashArray[index] != null && HashArray[index].active)
+      if (HashArray[index] != null && HashArray[index].active) {
          found = true;
-
-      return HashArray[index];
+         return HashArray[index].element;     
+      }
+      
+      return null;
    }
 
    public void insert(Object item) {
@@ -113,11 +115,12 @@ public class HashTable {
    }
    
    public void printTable() {
-      System.out.println("HashArray.length: " + HashArray.length);
-      
       for(int i= 0; i < HashArray.length; i++) {
          try {
-            System.out.println("[" + i + "]: " + HashArray[i] + ", " + HashArray[i].active);
+            if(HashArray[i].active)
+               System.out.println("[" + i + "]: " + HashArray[i] + ", active");
+            else
+               System.out.println("[" + i + "]: " + HashArray[i] + ", inactive");
          }
          catch(NullPointerException npe) {
             System.out.println("[" + i + "]: null, inactive");
