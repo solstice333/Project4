@@ -17,12 +17,11 @@ public class HashTable {
    }
    
    private class Iter implements Iterator {
-      int cursor = 0;
+      int cursor;
       
       @Override
       public boolean hasNext() {
-         // TODO Auto-generated method stub
-         return false;
+         return cursor < HashEntry.length;
       }
 
       @Override
