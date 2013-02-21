@@ -5,9 +5,9 @@ import java.util.NoSuchElementException;
 public class test {
 
    public static void main(String[] args) {
-      int[] arr = new int[10];
+      HashTable ht = new HashTable(5);
       
-      System.out.println(arr.length);
+      ht.printTable();
    }
 }
 
