@@ -2,7 +2,7 @@ import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class HashTable {
+public class HashTableCW {
 
    private class HashEntry {
       public Object element;
@@ -36,18 +36,15 @@ public class HashTable {
 
    private void rehash() {
       HashEntry[] temp = HashArray;
+
       BigInteger val = new BigInteger(String.valueOf(HashArray.length * 2));
       HashArray = new HashEntry[val.nextProbablePrime().intValue()];
-      occupied = 0;
-      
-      int index;
-      for(int i = 0; i < temp.length; i++) {
-         if(temp[i] != null && temp[i].active) {
-            index = findPosition(temp[i].element);
-            HashArray[index] = temp[i];
-            occupied++;
-         }
-      }
+
+   }
+
+   public HashTable(int collectionSize) {
+      BigInteger val = new BigInteger(String.valueOf(collectionSize * 2));
+      HashArray = new HashEntry[val.nextProbablePrime().intValue()];
    }
 
    // Requires testing
@@ -84,11 +81,6 @@ public class HashTable {
          throw new UnsupportedOperationException();
       }
    }
-   
-   public HashTable(int collectionSize) {
-      BigInteger val = new BigInteger(String.valueOf(collectionSize * 2));
-      HashArray = new HashEntry[val.nextProbablePrime().intValue()];
-   }
 
    public Object find(Object item) {
       int index = findPosition(item);
@@ -100,29 +92,8 @@ public class HashTable {
       return HashArray[index];
    }
 
-   public void insert(Object item) {
-      int index = findPosition(item);
-      if(HashArray[index] == null) {
-         HashArray[index] = new HashEntry(item);
-         occupied++;
-         if(occupied >= HashArray.length/2)
-            rehash();
-      }
-      else if(!HashArray[index].active)
-         HashArray[index].active = true;
-   }
-   
    public void printTable() {
-      System.out.println("HashArray.length: " + HashArray.length);
-      
-      for(int i= 0; i < HashArray.length; i++) {
-         try {
-            System.out.println("[" + i + "]: " + HashArray[i] + ", " + HashArray[i].active);
-         }
-         catch(NullPointerException npe) {
-            System.out.println("[" + i + "]: null, inactive");
-         }
-      }
 
    }
+
 }
