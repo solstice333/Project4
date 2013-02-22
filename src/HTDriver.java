@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 public class HTDriver
@@ -5,13 +7,13 @@ public class HTDriver
    public static void main(String[] args)
    {
       Scanner input = new Scanner(System.in);
-      HashTable<Student> table;
+      HashTable table;
       String discard;
       char choice = 0;
       StringTokenizer st;
       String name;
       String token;
-      String discard;
+      String s;
       Long idnum;
       int count;
 
@@ -31,7 +33,7 @@ public class HTDriver
          e.printStackTrace();
        }
        count = in.nextInt();
-       table = new HashTable<Student>(count);
+       table = new HashTable(count);
        
        for(int i = 0; i < count; i++)
        {
@@ -100,11 +102,11 @@ public class HTDriver
                {
                   name = token;
                }
-            
+               }
             if(!idnum.equals(0) && idnum > 0 && name != null)
             {
                table.insert(new Student(idnum,name));
-               System.out.println(item + " added");
+               System.out.println(idnum + " added");
             }
             
             }
@@ -122,8 +124,13 @@ public class HTDriver
             {
                Integer item = input.nextInt();
                discard = input.nextLine();
-               table.delete(item);      
-               System.out.println(item + " deleted");
+               Long i = new Long(item);
+               Student dummy = new Student(i,"dummy");
+               if(table.find(i) != null)
+               {
+                  table.delete(dummy);  
+               }    
+               System.out.println("Student with hashcode "+i + "deleted");
             }
             else
             {
@@ -134,32 +141,37 @@ public class HTDriver
             break;
 
 
-         case 'e':
-            if (t.isEmpty())
-               System.out.println("empty");
-            else
-               System.out.println("not empty");
-            break;
-
          case 'f':
-            System.out.println("Input a value: ");
-            if (input.hasNextInt())
+            System.out.println("Input a single Integer 0-9:");
+            if(input.hasNextInt())
             {
                Integer item = input.nextInt();
                discard = input.nextLine();
-
-               if (t.find(item))
-                  System.out.println(item + " found");
+               if(item < 0)
+               {
+                  System.out.println("Invalid Input");
+                  break;
+               }
+               Long i = new Long(item);
+               Student dummy = new Student(i,"dummy");
+               if(table.find(dummy) != null)
+               {
+                   System.out.println("Student with key "+item+" was found in collection");
+               }
                else
-                  System.out.println(item + " not found");
+               {
+                   System.out.println("Student not found");
+               }
             }
-
             else
             {
                discard = input.nextLine();
-               System.out.println("Invalid input");
+               System.out.println("Invalid Input");
             }
+            break;
 
+         case 'n':
+            System.out.println("The number of elements in the collection is "+table.elementCount());
             break;
 
          case 'q':
@@ -167,10 +179,34 @@ public class HTDriver
             break;
 
          case 'p':
-            t.print();
+            table.printTable();
             System.out.println();
             break;
 
+         case 'e':
+            if(table.isEmpty())
+            {
+               System.out.println("The collection is empty");
+            }
+            else
+               System.out.println("The collection is not empty");
+            break;
+         
+         case 'k':
+            table.makeEmpty();
+            System.out.println("Collection Emptied");
+            break;
+            
+         case 'o':
+            Iterator iter = table.iterator();
+            while (iter.hasNext())
+            {
+               System.out.print(iter.next().toString() + " ");
+            }
+               break;
+       
+            
+         
          default:
             System.out.println("Invalid choice");
          }

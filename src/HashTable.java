@@ -1,11 +1,48 @@
+/*
+ * @authors: Casey Wu, Kevin Navero    
+ * @Assignment name: Project 4
+ * @Class and section number: CPE103-04
+ */
+
+/*
+ * Description:
+ * Parameters:
+ * Preconditions:
+ * Return value:
+ * Exceptions:
+ * Postconditions:
+ */
+
 import java.math.BigInteger;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+/*
+ * Description: HashTable creates and manages an array of HashEntry objects 
+ */
 public class HashTable {
-
+   /*
+    * Description: HashEntry objects contain two values - the Object type element passed to the constructor
+    * and a boolean value defining if the HashEntry is active or not
+    */
    private class HashEntry {
+      /*
+       * Description:
+       * Parameters:
+       * Preconditions:
+       * Return value:
+       * Exceptions:
+       * Postconditions:
+       */
       public Object element;
+      /*
+       * Description:
+       * Parameters:
+       * Preconditions:
+       * Return value:
+       * Exceptions:
+       * Postconditions:
+       */
       public boolean active;
 
       public HashEntry(Object x) {
