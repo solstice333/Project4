@@ -122,6 +122,30 @@ public class HashTable {
       }
    }
    
+   public int elementCount() {
+      int count = 0;
+      Iterator iter = iterator();
+      
+      while(iter.hasNext()) {
+         iter.next();
+         count++;
+      }
+      
+      return count;
+   }
+   
+   public boolean isEmpty() {
+      if(elementCount() > 0) 
+         return false;
+      return true;
+   }
+   
+   public void makeEmpty() {
+      BigInteger val = new BigInteger(String.valueOf(HashArray.length));
+      HashArray = new HashEntry[val.nextProbablePrime().intValue()];
+      occupied = 0;
+   }
+   
    public void printTable() {
       for (int i = 0; i < HashArray.length; i++) {
          try {

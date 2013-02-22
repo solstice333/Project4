@@ -5,7 +5,7 @@ public class testPrime {
    public static void main(String[] args) {
       BigInteger val = new BigInteger("55");
       
-      System.out.println(val.nextProbablePrime());
+      System.out.println(23%11);
    }
 
 }
