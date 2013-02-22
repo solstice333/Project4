@@ -3,6 +3,14 @@ import java.util.NoSuchElementException;
 
 public class test {
 
+   /*
+    * Description:
+    * Parameters:
+    * Preconditions:
+    * Return value:
+    * Exceptions:
+    * Postconditions:
+    */
    public static void main(String[] args) {
       HashTable ht = new HashTable(2);
 
@@ -25,9 +33,10 @@ public class test {
       ht.insert(14);
       ht.insert(2);
       ht.insert(23);
-      ht.makeEmpty();
       ht.insert(23);
-      ht.makeEmpty();
+      ht.delete(23);
+      
+      System.out.println("ht.find(23): " + ht.find(23));
       
       Iterator iter = ht.iterator();
 

@@ -35,7 +35,7 @@ public class HTDriver
        count = in.nextInt();
        table = new HashTable(count);
        
-       for(int i = 0; i < count; i++)
+       for(int i = 0; i <= count; i++)
        {
           s = in.nextLine();
           st = new StringTokenizer(s);
@@ -63,7 +63,7 @@ public class HTDriver
       }
 
      
-      discard = input.nextLine();
+      input = new Scanner(System.in);
 
       System.out.println("Choose one of the following operations by entering provided letter: "  
             + "\n   a - add the element"
@@ -85,7 +85,7 @@ public class HTDriver
          {
          case 'a':
             System.out.println("Input a id number and a name. (Same line separated by a space) ");
-            s = in.nextLine();
+            s = input.nextLine();
             st = new StringTokenizer(s);
             if(st.countTokens() == 2)
             {
@@ -105,8 +105,9 @@ public class HTDriver
                }
             if(!idnum.equals(0) && idnum > 0 && name != null)
             {
-               table.insert(new Student(idnum,name));
-               System.out.println(idnum + " added");
+               Object stu = new Student(idnum,name);
+               table.insert(stu);
+               System.out.println(stu.toString() + " added");
             }
             
             }
@@ -122,15 +123,14 @@ public class HTDriver
             System.out.println("Input a integer only: ");
             if (input.hasNextInt())
             {
-               Integer item = input.nextInt();
+               Long item = input.nextLong();
                discard = input.nextLine();
-               Long i = new Long(item);
-               Student dummy = new Student(i,"dummy");
-               if(table.find(i) != null)
+               Object dummy = new Student(item,"dummy");
+               if(table.find(dummy) != null)
                {
                   table.delete(dummy);  
                }    
-               System.out.println("Student with hashcode "+i + "deleted");
+               System.out.println("Student with hashcode "+item + " deleted");
             }
             else
             {
@@ -142,21 +142,22 @@ public class HTDriver
 
 
          case 'f':
-            System.out.println("Input a single Integer 0-9:");
+            System.out.println("Input a Integer :");
             if(input.hasNextInt())
             {
-               Integer item = input.nextInt();
+               Long item = input.nextLong();
                discard = input.nextLine();
                if(item < 0)
                {
                   System.out.println("Invalid Input");
                   break;
                }
-               Long i = new Long(item);
-               Student dummy = new Student(i,"dummy");
+               
+               Object dummy = new Student(item,"dummy");
+  
                if(table.find(dummy) != null)
                {
-                   System.out.println("Student with key "+item+" was found in collection");
+                   System.out.println(table.toString()+ " was found in collection");
                }
                else
                {

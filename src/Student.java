@@ -31,9 +31,9 @@ public class Student
     * Preconditions: must both be of Student type with valid ID numbers
     * Return value: returns true if the students are the same false if they are not the same
     */
-   public boolean equals(Student other)
+   public boolean equals(Object other)
    {
-      return this.id == other.id;
+      return this.id == ((Student)other).id;
    }
    
    /*
