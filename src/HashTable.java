@@ -130,7 +130,6 @@ public class HashTable {
 
    public Object find(Object item) {
       int index = findPosition(item);
-      System.out.println("index is "+ index);
       boolean found = false;
 
       if(HashArray[index] != null && HashArray[index].active) {
