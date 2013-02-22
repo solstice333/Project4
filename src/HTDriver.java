@@ -12,11 +12,13 @@ import java.util.*;
  */
 public class HTDriver {
 
-/*
- * Description: The main method for the test driver. The driver first intake a file with the first line being the size of the
-                hash table. Then create the table and read in however many lines was instructured.
-                Will add valid inputs into the hash table. Then prompts a menu for user to choose what they wish to do with the table.
- */
+   /*
+    * Description: The main method for the test driver. The driver first intake
+    * a file with the first line being the size of the hash table. Then create
+    * the table and read in however many lines was instructured. Will add valid
+    * inputs into the hash table. Then prompts a menu for user to choose what
+    * they wish to do with the table.
+    */
    public static void main(String[] args) {
       Scanner input = new Scanner(System.in);
       HashTable table;
@@ -121,6 +123,12 @@ public class HTDriver {
             if (input.hasNextInt()) {
                Long item = input.nextLong();
                discard = input.nextLine();
+
+               if (item < 0) {
+                  System.out.println("Invalid input");
+                  break;
+               }
+
                Object dummy = new Student(item, "dummy");
                if (table.find(dummy) != null) {
                   table.delete(dummy);
