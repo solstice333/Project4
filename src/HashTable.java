@@ -39,10 +39,10 @@ public class HashTable {
       BigInteger val = new BigInteger(String.valueOf(HashArray.length * 2));
       HashArray = new HashEntry[val.nextProbablePrime().intValue()];
       occupied = 0;
-      
+
       int index;
-      for(int i = 0; i < temp.length; i++) {
-         if(temp[i] != null && temp[i].active) {
+      for (int i = 0; i < temp.length; i++) {
+         if (temp[i] != null && temp[i].active) {
             index = findPosition(temp[i].element);
             HashArray[index] = temp[i];
             occupied++;
@@ -56,7 +56,7 @@ public class HashTable {
 
       public Iter() {
          cursor = 0;
-         while (!HashArray[cursor].active) {
+         while (hasNext() && (HashArray[cursor] == null || !HashArray[cursor].active)) {
             cursor++;
          }
       }
@@ -71,8 +71,10 @@ public class HashTable {
          if (!hasNext())
             throw new NoSuchElementException();
 
-         HashEntry val = HashArray[cursor];
-         while (!HashArray[cursor].active) {
+         Object val = HashArray[cursor].element;
+         cursor++;
+         
+         while (hasNext() && (HashArray[cursor] == null || !HashArray[cursor].active)) {
             cursor++;
          }
 
@@ -84,7 +86,7 @@ public class HashTable {
          throw new UnsupportedOperationException();
       }
    }
-   
+
    public HashTable(int collectionSize) {
       BigInteger val = new BigInteger(String.valueOf(collectionSize * 2));
       HashArray = new HashEntry[val.nextProbablePrime().intValue()];
@@ -96,36 +98,41 @@ public class HashTable {
 
       if (HashArray[index] != null && HashArray[index].active) {
          found = true;
-         return HashArray[index].element;     
+         return HashArray[index].element;
       }
-      
+
       return null;
    }
 
    public void insert(Object item) {
       int index = findPosition(item);
-      if(HashArray[index] == null) {
+      if (HashArray[index] == null) {
          HashArray[index] = new HashEntry(item);
          occupied++;
-         if(occupied >= HashArray.length/2)
+         if (occupied >= HashArray.length / 2)
             rehash();
       }
-      else if(!HashArray[index].active)
+      else if (!HashArray[index].active)
          HashArray[index].active = true;
    }
-   
+
    public void printTable() {
-      for(int i= 0; i < HashArray.length; i++) {
+      for (int i = 0; i < HashArray.length; i++) {
          try {
-            if(HashArray[i].active)
-               System.out.println("[" + i + "]: " + HashArray[i] + ", active");
+            if (HashArray[i].active)
+               System.out.println("[" + i + "]: " + HashArray[i].element
+                     + ", active");
             else
-               System.out.println("[" + i + "]: " + HashArray[i] + ", inactive");
+               System.out.println("[" + i + "]: " + HashArray[i].element
+                     + ", inactive");
          }
-         catch(NullPointerException npe) {
+         catch (NullPointerException npe) {
             System.out.println("[" + i + "]: null, inactive");
          }
       }
+   }
 
+   public Iterator iterator() {
+      return new Iter();
    }
 }
