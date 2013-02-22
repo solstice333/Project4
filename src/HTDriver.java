@@ -5,21 +5,74 @@ public class HTDriver
    public static void main(String[] args)
    {
       Scanner input = new Scanner(System.in);
-      HashTableSC<Integer> t;
+      HashTable<Student> table;
       String discard;
       char choice = 0;
+      StringTokenizer st;
+      String name;
+      String token;
+      String discard;
+      Long idnum;
+      int count;
 
-      System.out.println("Enter size of table: ");
-      t = new HashTableSC<Integer>(input.nextInt());
+      String filename = null;
+      File inFile = null;
+      Scanner in = null;
+
+      System.out.println("enter name of the input file:");
+      filename = input.next();
+      try
+       {
+        inFile = new File("/Users/Casey/Dropbox/cpe103Shared/Project4/src",filename);
+        in = new Scanner(inFile);
+       }
+       catch(IOException e)
+       {
+         e.printStackTrace();
+       }
+       count = in.nextInt();
+       table = new HashTable<Student>(count);
+       
+       for(int i = 0; i < count; i++)
+       {
+          s = in.nextLine();
+          st = new StringTokenizer(s);
+          if(st.countTokens() == 2)
+          {
+             idnum = new Long(0);
+             name = null;
+             while(st.hasMoreTokens())
+             {
+                token = st.nextToken();
+                try
+                {
+                   idnum = new Long(token);
+                }
+                catch(Exception e)
+                {
+                   name = token;
+                }
+             }
+             if(!idnum.equals(0) && idnum > 0 && name != null)
+             {
+                table.insert(new Student(idnum,name));
+             }  
+          }
+      }
+
+     
       discard = input.nextLine();
 
-      System.out.println("Operations: "  
-            + "\n   - Add/insert (a)"
-            + "\n   - delete (d)" 
-            + "\n   - empty (e)"
-            + "\n   - print the hashtable (p)" 
-            + "\n   - find (f) "
-            + "\n   - quit (q)");
+      System.out.println("Choose one of the following operations by entering provided letter: "  
+            + "\n   a - add the element"
+            + "\n   d - delete the element" 
+            + "\n   f - find and retrieve the element"
+            + "\n   n - get the number of elements in the collection" 
+            + "\n   e - check if the collection is empty"
+            + "\n   k - make the hash table empty" 
+            + "\n   p - print out the content of the hash table"
+            + "\n   o - output the elements of the collection" 
+            + "\n   q - Quit the program");
 
       while (choice != 'q')
       {
@@ -29,15 +82,32 @@ public class HTDriver
          switch (choice)
          {
          case 'a':
-            System.out.println("Input a value: ");
-            if (input.hasNextInt())
+            System.out.println("Input a id number and a name. (Same line separated by a space) ");
+            s = in.nextLine();
+            st = new StringTokenizer(s);
+            if(st.countTokens() == 2)
             {
-               Integer item = input.nextInt();
-               discard = input.nextLine();
-               t.insert(item);
+               idnum = new Long(0);
+               name = null;
+               while(st.hasMoreTokens())
+               {
+                  token = st.nextToken();
+               try
+               {
+                  idnum = new Long(token);
+               }
+               catch(Exception e)
+               {
+                  name = token;
+               }
+            
+            if(!idnum.equals(0) && idnum > 0 && name != null)
+            {
+               table.insert(new Student(idnum,name));
                System.out.println(item + " added");
             }
-
+            
+            }
             else
             {
                discard = input.nextLine();
@@ -47,12 +117,12 @@ public class HTDriver
             break;
 
          case 'd':
-            System.out.println("Input a value: ");
+            System.out.println("Input a integer only: ");
             if (input.hasNextInt())
             {
                Integer item = input.nextInt();
                discard = input.nextLine();
-               t.delete(item);
+               table.delete(item);      
                System.out.println(item + " deleted");
             }
             else
@@ -60,7 +130,9 @@ public class HTDriver
                discard = input.nextLine();
                System.out.println("Invalid input");
             }
+
             break;
+
 
          case 'e':
             if (t.isEmpty())
