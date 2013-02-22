@@ -50,7 +50,6 @@ public class HashTable {
       }
    }
 
-   // Requires testing
    private class Iter implements Iterator {
       int cursor;
 
@@ -116,6 +115,13 @@ public class HashTable {
          HashArray[index].active = true;
    }
 
+   public void delete(Object item) {
+      int index = findPosition(item);
+      if(HashArray[index] != null) {
+         HashArray[index].active = false;
+      }
+   }
+   
    public void printTable() {
       for (int i = 0; i < HashArray.length; i++) {
          try {
