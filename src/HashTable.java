@@ -157,7 +157,7 @@ public class HashTable {
                      + ", inactive");
          }
          catch (NullPointerException npe) {
-            System.out.println("[" + i + "]: null, inactive");
+            System.out.println("[" + i + "]: empty, inactive");
          }
       }
    }
